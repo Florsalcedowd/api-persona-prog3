@@ -44,18 +44,18 @@ public class LibroEntity implements Serializable {
     		name= "libro_autor",
     		joinColumns= @JoinColumn(name= "libro_id"),
     		inverseJoinColumns = @JoinColumn(name = "autor_id"))
-	private List<AutorEntity> autor;
+	private List<AutorEntity> autores;
 
 	public LibroEntity() {
 		
 	}
 
-	public LibroEntity(String titulo, int anio, String genero, int paginas, List<AutorEntity> autor) {
+	public LibroEntity(String titulo, int anio, String genero, int paginas, List<AutorEntity> autores) {
 		this.titulo = titulo;
 		this.anio = anio;
 		this.genero = genero;
 		this.paginas = paginas;
-		this.autor = autor;
+		this.autores = autores;
 	}
 
 	public Long getId() {
@@ -98,12 +98,12 @@ public class LibroEntity implements Serializable {
 		this.paginas = paginas;
 	}
 
-	public List<AutorEntity> getAutor() {
-		return autor;
+	public List<AutorEntity> getAutores() {
+		return autores;
 	}
 
-	public void setAutor(List<AutorEntity> autor) {
-		this.autor = autor;
+	public void setAutores(List<AutorEntity> autores) {
+		this.autores = autores;
 	}
 
 }

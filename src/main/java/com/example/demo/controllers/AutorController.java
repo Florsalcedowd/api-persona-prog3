@@ -1,6 +1,5 @@
 package com.example.demo.controllers;
 
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,17 +12,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.entities.PersonaEntity;
-import com.example.demo.services.PersonaService;
+import com.example.demo.entities.AutorEntity;
+import com.example.demo.services.AutorService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(path = "api/v1/personas")
-public class PersonaController {
+@RequestMapping(path = "api/v1/autores")
+public class AutorController {
 
-	PersonaService service;
+	AutorService service;
 	
-	public PersonaController(PersonaService service) {
+	public AutorController(AutorService service) {
+		super();
 		this.service = service;
 	}
 	
@@ -57,7 +57,7 @@ public class PersonaController {
 	}
 	
 	@PostMapping("/")
-	public ResponseEntity<?> post(@RequestBody PersonaEntity entity) {
+	public ResponseEntity<?> post(@RequestBody AutorEntity entity) {
 		
 		try {
 			
@@ -72,7 +72,7 @@ public class PersonaController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> put(@PathVariable Long id, @RequestBody PersonaEntity entity) {
+	public ResponseEntity<?> put(@PathVariable Long id, @RequestBody AutorEntity entity) {
 		
 		try {
 			
