@@ -27,7 +27,7 @@ public class AutorController {
 		this.service = service;
 	}
 	
-	@GetMapping("/")
+	@GetMapping("")
 	public ResponseEntity<?> getAll() {
 		
 		try {
@@ -56,7 +56,7 @@ public class AutorController {
 		}
 	}
 	
-	@PostMapping("/")
+	@PostMapping("")
 	public ResponseEntity<?> post(@RequestBody AutorEntity entity) {
 		
 		try {

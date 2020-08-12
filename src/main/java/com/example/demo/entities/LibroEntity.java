@@ -39,7 +39,7 @@ public class LibroEntity implements Serializable {
 	// @Column(name="autor")
 	// private String autor;
 	
-	@ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(
     		name= "libro_autor",
     		joinColumns= @JoinColumn(name= "libro_id"),

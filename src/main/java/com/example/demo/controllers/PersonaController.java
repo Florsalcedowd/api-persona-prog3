@@ -27,7 +27,7 @@ public class PersonaController {
 		this.service = service;
 	}
 	
-	@GetMapping("/")
+	@GetMapping("")
 	public ResponseEntity<?> getAll() {
 		
 		try {
@@ -56,7 +56,7 @@ public class PersonaController {
 		}
 	}
 	
-	@PostMapping("/")
+	@PostMapping("")
 	public ResponseEntity<?> post(@RequestBody PersonaEntity entity) {
 		
 		try {

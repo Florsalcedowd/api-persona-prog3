@@ -33,7 +33,6 @@ public class AutorEntity implements Serializable {
 	}
 	
 	public AutorEntity(String nombre, String apellido, String biografia) {
-		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.biografia = biografia;

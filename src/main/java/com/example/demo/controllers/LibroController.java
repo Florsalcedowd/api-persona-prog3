@@ -27,7 +27,7 @@ public class LibroController {
 		this.service = service;
 	}
 	
-	@GetMapping("/")
+	@GetMapping("")
 	public ResponseEntity<?> getAll() {
 		
 		try {
@@ -56,7 +56,7 @@ public class LibroController {
 		}
 	}
 	
-	@PostMapping("/")
+	@PostMapping("")
 	public ResponseEntity<?> post(@RequestBody LibroEntity entity) {
 		
 		try {
