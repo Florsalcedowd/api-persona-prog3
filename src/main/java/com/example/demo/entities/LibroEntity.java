@@ -27,8 +27,8 @@ public class LibroEntity implements Serializable {
 	@Column(name="titulo")
 	private String titulo;
 	
-	@Column(name="anio")
-	private int anio;
+	@Column(name="fechaPublicacion")
+	private int fechaPublicacion;
 	
 	@Column(name="genero")
 	private String genero;
@@ -50,9 +50,9 @@ public class LibroEntity implements Serializable {
 		
 	}
 
-	public LibroEntity(String titulo, int anio, String genero, int paginas, List<AutorEntity> autores) {
+	public LibroEntity(String titulo, int fechaPublicacion, String genero, int paginas, List<AutorEntity> autores) {
 		this.titulo = titulo;
-		this.anio = anio;
+		this.fechaPublicacion = fechaPublicacion;
 		this.genero = genero;
 		this.paginas = paginas;
 		this.autores = autores;
@@ -74,12 +74,12 @@ public class LibroEntity implements Serializable {
 		this.titulo = titulo;
 	}
 
-	public int getAnio() {
-		return anio;
+	public int getFechaPublicacion() {
+		return fechaPublicacion;
 	}
 
-	public void setAnio(int anio) {
-		this.anio = anio;
+	public void setFechaPublicacion(int fechaPublicacion) {
+		this.fechaPublicacion = fechaPublicacion;
 	}
 
 	public String getGenero() {
