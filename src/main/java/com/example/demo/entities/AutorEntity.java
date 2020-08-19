@@ -9,8 +9,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name = "autor")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AutorEntity implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -27,47 +34,5 @@ public class AutorEntity implements Serializable {
 	
 	@Column(name = "biografia", length = 1500)
 	private String biografia;
-
-	public AutorEntity() {
-		
-	}
-	
-	public AutorEntity(String nombre, String apellido, String biografia) {
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.biografia = biografia;
-	}
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-	public String getBiografia() {
-		return biografia;
-	}
-
-	public void setBiografia(String biografia) {
-		this.biografia = biografia;
-	}
 
 }

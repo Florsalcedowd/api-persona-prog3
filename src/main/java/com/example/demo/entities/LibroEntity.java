@@ -14,8 +14,15 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name="libro")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class LibroEntity implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -27,7 +34,7 @@ public class LibroEntity implements Serializable {
 	@Column(name="titulo")
 	private String titulo;
 	
-	@Column(name="fechaPublicacion")
+	@Column(name="fecha_publicacion")
 	private int fechaPublicacion;
 	
 	@Column(name="genero")
@@ -45,65 +52,5 @@ public class LibroEntity implements Serializable {
     		joinColumns= @JoinColumn(name= "libro_id"),
     		inverseJoinColumns = @JoinColumn(name = "autor_id"))
 	private List<AutorEntity> autores;
-
-	public LibroEntity() {
-		
-	}
-
-	public LibroEntity(String titulo, int fechaPublicacion, String genero, int paginas, List<AutorEntity> autores) {
-		this.titulo = titulo;
-		this.fechaPublicacion = fechaPublicacion;
-		this.genero = genero;
-		this.paginas = paginas;
-		this.autores = autores;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-	public int getFechaPublicacion() {
-		return fechaPublicacion;
-	}
-
-	public void setFechaPublicacion(int fechaPublicacion) {
-		this.fechaPublicacion = fechaPublicacion;
-	}
-
-	public String getGenero() {
-		return genero;
-	}
-
-	public void setGenero(String genero) {
-		this.genero = genero;
-	}
-
-	public int getPaginas() {
-		return paginas;
-	}
-
-	public void setPaginas(int paginas) {
-		this.paginas = paginas;
-	}
-
-	public List<AutorEntity> getAutores() {
-		return autores;
-	}
-
-	public void setAutores(List<AutorEntity> autores) {
-		this.autores = autores;
-	}
 
 }

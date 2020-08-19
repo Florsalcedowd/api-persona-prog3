@@ -9,8 +9,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name="localidad")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class LocalidadEntity implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -21,29 +28,5 @@ public class LocalidadEntity implements Serializable {
 	
 	@Column(name = "denominacion")
 	private String denominacion;
-
-	public LocalidadEntity() {
-		
-	}
-
-	public LocalidadEntity(String denominacion) {
-		this.denominacion = denominacion;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getDenominacion() {
-		return denominacion;
-	}
-
-	public void setDenominacion(String denominacion) {
-		this.denominacion = denominacion;
-	}
 
 }

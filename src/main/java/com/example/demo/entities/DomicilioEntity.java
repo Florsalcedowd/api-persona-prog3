@@ -11,8 +11,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name="domicilio")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DomicilioEntity implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -30,47 +37,5 @@ public class DomicilioEntity implements Serializable {
 	@ManyToOne(optional = false)
     @JoinColumn(name = "fk_localidad")
 	private LocalidadEntity localidad;
-	
-	public DomicilioEntity() {
-		
-	}
-
-	public DomicilioEntity(String calle, int numero, LocalidadEntity localidad) {
-		this.calle = calle;
-		this.numero = numero;
-		this.localidad = localidad;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getCalle() {
-		return calle;
-	}
-
-	public void setCalle(String calle) {
-		this.calle = calle;
-	}
-
-	public int getNumero() {
-		return numero;
-	}
-
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
-
-	public LocalidadEntity getLocalidad() {
-		return localidad;
-	}
-
-	public void setLocalidad(LocalidadEntity localidad) {
-		this.localidad = localidad;
-	}
 
 }
