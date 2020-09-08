@@ -1,19 +1,14 @@
 package com.example.demo.controllers;
 
+import com.example.demo.dtos.AutorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.example.demo.entities.AutorEntity;
+import com.example.demo.entities.Autor;
 import com.example.demo.services.AutorService;
+
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -41,6 +36,20 @@ public class AutorController {
 		}
 		
 	}
+
+	@GetMapping("/paged")
+	public ResponseEntity<Map<String, Object>> getAllPaged(
+			@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "8") int size,
+			@RequestParam(defaultValue = "id") String sortBy,
+			@RequestParam(defaultValue = "desc") String direction) {
+		try {
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(service.findAll(page, size, sortBy, direction));
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getOne(@PathVariable Long id) {
@@ -57,11 +66,11 @@ public class AutorController {
 	}
 	
 	@PostMapping("")
-	public ResponseEntity<?> post(@RequestBody AutorEntity entity) {
+	public ResponseEntity<?> post(@RequestBody AutorDTO autorDTO) {
 		
 		try {
 			
-			return ResponseEntity.status(HttpStatus.OK).body(service.save(entity));
+			return ResponseEntity.status(HttpStatus.OK).body(service.save(autorDTO));
 			
 		} catch (Exception e) {
 			
@@ -72,11 +81,11 @@ public class AutorController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> put(@PathVariable Long id, @RequestBody AutorEntity entity) {
+	public ResponseEntity<?> put(@PathVariable Long id, @RequestBody AutorDTO autorDTO) {
 		
 		try {
 			
-			return ResponseEntity.status(HttpStatus.OK).body(service.update(id, entity));
+			return ResponseEntity.status(HttpStatus.OK).body(service.update(id, autorDTO));
 			
 		} catch (Exception e) {
 			

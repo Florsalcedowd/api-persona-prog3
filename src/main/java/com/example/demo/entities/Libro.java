@@ -14,22 +14,21 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.envers.Audited;
+
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name="libro")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class LibroEntity implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+@Audited
+public class Libro extends Base {
 	
 	@Column(name="titulo")
 	private String titulo;
@@ -43,14 +42,11 @@ public class LibroEntity implements Serializable {
 	@Column(name="paginas")
 	private int paginas;
 	
-	// @Column(name="autor")
-	// private String autor;
-	
 	@ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(
     		name= "libro_autor",
     		joinColumns= @JoinColumn(name= "libro_id"),
     		inverseJoinColumns = @JoinColumn(name = "autor_id"))
-	private List<AutorEntity> autores;
+	private List<Autor> autores;
 
 }

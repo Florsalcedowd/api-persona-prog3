@@ -5,113 +5,31 @@ import java.util.Optional;
 
 import javax.transaction.Transactional;
 
+import com.example.demo.entities.Persona;
+import com.example.demo.repositories.BaseRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entities.LibroEntity;
+import com.example.demo.entities.Libro;
 import com.example.demo.repositories.LibroRepository;
 
 @Service
-public class LibroService {
-	
-	private LibroRepository repository;
+@Transactional
+public class LibroService extends BaseServiceImpl<Libro, Long> {
 
-	public LibroService(LibroRepository repository) {
-		this.repository = repository;
+	@Autowired
+	private LibroRepository libroRepository;
+
+	public LibroService(LibroRepository baseRepository) {
+		super(baseRepository);
 	}
-	
-	@Transactional
-	public List<LibroEntity> findAll() throws Exception {
-		
-		try {
-		
-			List<LibroEntity> entities = repository.findAll();
-			return entities;
-		
-		
-		} catch (Exception e) {
-			
+
+	public List<Libro> search(String filter) throws Exception {
+		try{
+			List<Libro> results = libroRepository.search(filter);
+			return results;
+		} catch (Exception e){
 			throw new Exception(e.getMessage());
-			
 		}
-		
-	}	
-	
-	@Transactional
-	public LibroEntity findById(Long id) throws Exception {
-		
-		try {
-		
-			Optional<LibroEntity> entityOptional = repository.findById(id);
-			LibroEntity entity = entityOptional.get();
-		
-			return entity ;
-			
-		} catch (Exception e) {
-			
-			throw new Exception(e.getMessage());
-			
-		}
-		
-	}	
-	
-	@Transactional
-	public LibroEntity save (LibroEntity newEntity) throws Exception {
-		
-		try {
-			
-			newEntity = repository.save(newEntity);
-			return newEntity;		
-			
-		} catch (Exception e) {
-			
-			throw new Exception(e.getMessage());
-			
-		}
-		
-	}
-	
-	@Transactional
-	public LibroEntity update (Long id, LibroEntity entity) throws Exception {
-		
-		try {
-			
-			Optional<LibroEntity> entityOptional = repository.findById(id);
-			LibroEntity updateEntity = entityOptional.get();
-			updateEntity = repository.save(entity);
-			return updateEntity;
-			
-			
-		} catch (Exception e) {
-			
-			throw new Exception(e.getMessage());
-			
-		}
-		
-	}
-	
-	@Transactional
-	public boolean delete(Long id) throws Exception {
-		
-		try {
-			
-			if (repository.existsById(id)) {
-				
-				repository.deleteById(id);
-				return true;
-				
-			}
-			
-			else {
-				
-				throw new Exception();
-				
-			}
-			
-		} catch (Exception e) {
-			
-			throw new Exception();
-			
-		}
-		
 	}
 }

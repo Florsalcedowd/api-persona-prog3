@@ -16,22 +16,21 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.envers.Audited;
+
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "persona")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PersonaEntity implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+@Audited
+public class Persona extends Base {
 	
 	@Column(name="nombre")
 	private String nombre;
@@ -44,13 +43,13 @@ public class PersonaEntity implements Serializable {
 	
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fk_domicilio")
-    private DomicilioEntity domicilio;
+    private Domicilio domicilio;
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinTable(
     		name= "persona_libro",
     		joinColumns= @JoinColumn(name= "persona_id"),
     		inverseJoinColumns = @JoinColumn(name = "libro_id"))
-	private List<LibroEntity> libros = new ArrayList<LibroEntity>();
+	private List<Libro> libros = new ArrayList<Libro>();
 	
 }

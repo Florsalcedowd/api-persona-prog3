@@ -1,13 +1,18 @@
 package com.example.demo.services;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import javax.transaction.Transactional;
 
+import com.example.demo.dtos.AutorDTO;
+import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entities.AutorEntity;
+import com.example.demo.entities.Autor;
 import com.example.demo.repositories.AutorRepository;
 
 @Service
@@ -20,14 +25,72 @@ public class AutorService {
 	}
 	
 	@Transactional
-	public List<AutorEntity> findAll() throws Exception {
-		
+	public List<AutorDTO> findAll() throws Exception {
+
 		try {
+
+			List<Autor> entities = repository.findAll();
+			List<AutorDTO> dtos = new ArrayList<>();
+			ModelMapper modelMapper = new ModelMapper();
+
+			for (Autor item : entities) {
+				AutorDTO dto = (AutorDTO) modelMapper.map(item, AutorDTO.class);
+				dtos.add(dto);
+			}
+
+			return dtos;
 		
-			List<AutorEntity> entities = repository.findAll();
-			return entities;
 		
+		} catch (Exception e) {
+			
+			throw new Exception(e.getMessage());
+			
+		}
 		
+	}
+
+	@Transactional
+	public Map<String, Object> findAll(int page, int size, String sortBy, String direction) throws Exception {
+		try {
+			Pageable pageable;
+			if (direction.equals("desc")) {
+				pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, sortBy));
+			} else {
+				pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.ASC, sortBy));
+			}
+
+			Page<Autor> entityPage = repository.findAll(pageable);
+			List<Autor> entities = entityPage.getContent();
+
+			List<AutorDTO> dtos = new ArrayList<>();
+			ModelMapper modelMapper = new ModelMapper();
+
+			for (Autor item : entities) {
+				AutorDTO dto = (AutorDTO) modelMapper.map(item, AutorDTO.class);
+				dtos.add(dto);
+			}
+
+			Map<String, Object> response = new HashMap<>();
+			response.put("payload", dtos);
+			response.put("length", entityPage.getTotalElements());
+
+			return response;
+
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+	}
+	
+	@Transactional
+	public AutorDTO findById(Long id) throws Exception {
+
+		try {
+
+			Optional<Autor> entityOptional = repository.findById(id);
+			Autor entity = entityOptional.get();
+			ModelMapper modelMapper = new ModelMapper();
+			return (AutorDTO) modelMapper.map(entity,AutorDTO.class);
+			
 		} catch (Exception e) {
 			
 			throw new Exception(e.getMessage());
@@ -37,30 +100,15 @@ public class AutorService {
 	}	
 	
 	@Transactional
-	public AutorEntity findById(Long id) throws Exception {
-		
+	public AutorDTO save (AutorDTO autorDTO) throws Exception {
+
+		ModelMapper modelMapper = new ModelMapper();
+
 		try {
-		
-			Optional<AutorEntity> entityOptional = repository.findById(id);
-			AutorEntity entity = entityOptional.get();
-		
-			return entity ;
-			
-		} catch (Exception e) {
-			
-			throw new Exception(e.getMessage());
-			
-		}
-		
-	}	
-	
-	@Transactional
-	public AutorEntity save (AutorEntity newEntity) throws Exception {
-		
-		try {
-			
-			newEntity = repository.save(newEntity);
-			return newEntity;		
+
+			Autor entity = repository.save((Autor) modelMapper.map(autorDTO, Autor.class));
+
+			return (AutorDTO) modelMapper.map(entity, AutorDTO.class);
 			
 		} catch (Exception e) {
 			
@@ -71,16 +119,21 @@ public class AutorService {
 	}
 	
 	@Transactional
-	public AutorEntity update (Long id, AutorEntity entity) throws Exception {
-		
+	public AutorDTO update (Long id, AutorDTO autorDTO) throws Exception {
+
 		try {
-			
-			Optional<AutorEntity> entityOptional = repository.findById(id);
-			AutorEntity updateEntity = entityOptional.get();
-			updateEntity = repository.save(entity);
-			return updateEntity;
-			
-			
+
+			Optional<Autor> entityOptional = repository.findById(id);
+			Autor entity = entityOptional.get();
+
+			ModelMapper modelMapper = new ModelMapper();
+			Autor updateEntity = (Autor) modelMapper.map(autorDTO, Autor.class);
+
+			updateEntity.setId(id);
+			entity = repository.save(updateEntity);
+
+			return (AutorDTO) modelMapper.map(entity, AutorDTO.class);
+
 		} catch (Exception e) {
 			
 			throw new Exception(e.getMessage());
